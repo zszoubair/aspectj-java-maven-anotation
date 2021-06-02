@@ -1,9 +1,11 @@
 package com.zs;
 
-@Anonymized(fields = {"lastName"})
+//@Anonymized(fields = {"lastName"})
+@Anonymized(fields = {"firstName"})
 class Student {
     private String lastName;
     private String firstName;
+    private boolean exportPhase;
 
     public Student(String lastName, String firstName) {
         this.lastName = lastName;
@@ -26,5 +28,12 @@ class Student {
         this.firstName = firstName;
     }
 
+    public boolean isExportPhase() {
+        return exportPhase;
+    }
+
+    public void setExportPhase(boolean exportPhase) {
+        this.exportPhase = exportPhase;
+    }
 }
 
