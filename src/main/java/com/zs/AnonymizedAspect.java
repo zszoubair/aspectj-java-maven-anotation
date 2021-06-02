@@ -28,21 +28,21 @@ public class AnonymizedAspect {
 
 
         String isAnonymizableField = annotationFieldList
-            .stream()
-            .filter(elt -> elt.equalsIgnoreCase(joinPoint.getSignature().getName().replace("get", "")))
-            .findFirst().orElse(null);
+                .stream()
+                .filter(elt -> elt.equalsIgnoreCase(joinPoint.getSignature().getName().replace("get", "")))
+                .findFirst().orElse(null);
 
         return isAnonymizableField != null ? anonymizeData(joinPoint.proceed().toString()) : joinPoint.proceed();
     }
 
-    private String anonymizeData(String data)  {
+    private String anonymizeData(String data) {
         messageDigest.update(data.getBytes());
         return DatatypeConverter.printHexBinary(messageDigest.digest());
     }
 
     private static MessageDigest initMessageDigest() {
         try {
-          return MessageDigest.getInstance("MD5");
+            return MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException(e);
         }
