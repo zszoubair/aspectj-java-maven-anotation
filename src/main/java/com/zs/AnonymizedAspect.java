@@ -4,6 +4,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
 import javax.xml.bind.DatatypeConverter;
@@ -22,7 +23,8 @@ public class AnonymizedAspect {
             .map(elt -> {
                 elt.setAccessible(true);
                 try {
-                    return (boolean) elt.get(joinPoint.getThis());
+                    return elt.getBoolean(joinPoint.getThis());
+//                    return (boolean) elt.get();
                 } catch (IllegalAccessException e) {
                     throw new IllegalStateException(e);
                 }
